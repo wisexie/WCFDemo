@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Demo.Model" namespace="Demo.Model">
+  <class name="Contacts" table="Contacts">
+    <id name="Id" column="id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property name="FirstName" type="String" column="FirstName " />
+    <property name="LastName" type="String" column="LastName " />
+  </class>
+</hibernate-mapping>
