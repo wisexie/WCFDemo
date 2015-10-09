@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinClient", "WinClient\WinC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinService", "WinService\WinService.csproj", "{E8809E5E-2D71-4D2D-96DE-166A1FE64CC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorClient", "MonitorClient\MonitorClient.csproj", "{5FCEBA86-8576-4A9F-B9FA-28422599A647}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMintorClient", "WebMintorClient\WebMintorClient.csproj", "{29C70563-E450-4C84-ADD7-AED7A36155BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +59,10 @@ Global
 		{E8809E5E-2D71-4D2D-96DE-166A1FE64CC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8809E5E-2D71-4D2D-96DE-166A1FE64CC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8809E5E-2D71-4D2D-96DE-166A1FE64CC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FCEBA86-8576-4A9F-B9FA-28422599A647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FCEBA86-8576-4A9F-B9FA-28422599A647}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FCEBA86-8576-4A9F-B9FA-28422599A647}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FCEBA86-8576-4A9F-B9FA-28422599A647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29C70563-E450-4C84-ADD7-AED7A36155BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29C70563-E450-4C84-ADD7-AED7A36155BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29C70563-E450-4C84-ADD7-AED7A36155BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29C70563-E450-4C84-ADD7-AED7A36155BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

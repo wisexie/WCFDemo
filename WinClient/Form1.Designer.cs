@@ -35,19 +35,24 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ZHDM = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ACCNO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ZHDM});
+            this.ZHDM,
+            this.ACCNO});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView1.Location = new System.Drawing.Point(0, 55);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.Size = new System.Drawing.Size(456, 222);
             this.dataGridView1.TabIndex = 0;
@@ -96,9 +101,17 @@
             // 
             // ZHDM
             // 
+            this.ZHDM.DataPropertyName = "ZHDM";
             this.ZHDM.HeaderText = "ZHDM";
             this.ZHDM.Name = "ZHDM";
             this.ZHDM.ReadOnly = true;
+            // 
+            // ACCNO
+            // 
+            this.ACCNO.DataPropertyName = "ACCNO";
+            this.ACCNO.HeaderText = "ACCNO";
+            this.ACCNO.Name = "ACCNO";
+            this.ACCNO.ReadOnly = true;
             // 
             // Form1
             // 
@@ -126,8 +139,9 @@
         private System.Windows.Forms.TextBox txt_ACCNO;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ZHDM;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ZHDM;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ACCNO;
     }
 }
 

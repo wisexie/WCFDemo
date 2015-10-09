@@ -26,7 +26,7 @@ namespace WinClient
             PJSBLOG pjsblog = new PJSBLOG()
             {
                 ACCNO = this.txt_ACCNO.Text,
-                ZHDM = Convert.ToInt32(this.txt_ZHDM.Text)
+                ZHDM = Convert.ToInt32((this.txt_ZHDM.Text==""?"0":this.txt_ZHDM.Text))
             };
             IPJSBLOGBll bll = WcfClient.GetProxy<IPJSBLOGBll>();
             IList<PJSBLOG> list = bll.PJSBLOGInfo(pjsblog);

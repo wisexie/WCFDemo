@@ -21,7 +21,7 @@ namespace Demo.Dal
         {
             IList<PJSBLOG> result = null;
             string hql = "from PJSBLOG where 1=1 ";
-            if (!string.IsNullOrEmpty(PJSBLOGInfo.ZHDM.ToString()))
+            if (PJSBLOGInfo.ZHDM!=0)
             {
                 hql += " and ZHDM = :ZHDM";
             }
@@ -33,8 +33,14 @@ namespace Demo.Dal
             {
 
                 IQuery query = _session.CreateQuery(hql);
-                query.SetInt32("ZHDM", PJSBLOGInfo.ZHDM);
-                query.SetString("ACCNO", PJSBLOGInfo.ACCNO);
+                if (PJSBLOGInfo.ZHDM != 0)
+                {
+                    query.SetInt32("ZHDM", PJSBLOGInfo.ZHDM);
+                }
+                if (!string.IsNullOrEmpty(PJSBLOGInfo.ACCNO))
+                {
+                    query.SetString("ACCNO", "%" + PJSBLOGInfo.ACCNO + "%");
+                }
                 result = query.List<PJSBLOG>();
             }
             return result;
