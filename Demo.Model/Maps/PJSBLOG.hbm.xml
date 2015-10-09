@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Demo.Model.PJSBLOG, Demo.Model" table="PJSBLOG" >
+    <id name="PJSBLOGID" column="PJSBLOGID" type="Int32" unsaved-value="0">
+      <generator class="identity" />
+    </id>
+    <property name="ZHDM" column="ZHDM" type="Int32" length="4" />
+    <property name="ACCNO" column="ACCNO" type="String" length="64" />
+    <property name="CHEQUENO" column="CHEQUENO" type="String" length="20" />
+    <property name="OPCODE" column="OPCODE" type="String" length="20" />
+    <property name="OPDATE" column="OPDATE" type="String" length="10" />
+    <property name="OPTIME" column="OPTIME" type="String" length="10" />
+    <property name="OPRESULT" column="OPRESULT" type="Int32" length="1" />
+    <property name="PZID" column="PZID" type="Int32" length="4" />
+    <property name="Credit" column="Credit" type="float" length="4" />
+    <property name="VoucherDate" column="VoucherDate" type="String" length="10" />
+    <property name="SecHydm" column="SecHydm" type="String" length="20" />
+    <property name="OpType" column="OpType" type="Int32" length="1" />
+    <property name="OpDetail" column="OpDetail" type="String" length="500" />
+    <property name="VolumeNo" column="VolumeNo" type="String" length="20" />
+    <property name="SerialNo" column="SerialNo" type="String" length="20" />
+    <property name="BackSealFlag" column="BackSealFlag" type="Int32" length="1" />
+    <property name="Wdh" column="Wdh" type="String" length="20" />
+    <property name="CurrencyId" column="CurrencyId" type="Int32" length="2" />
+    <property name="PasswordResult" column="PasswordResult" type="Int32" length="1" />
+    <property name="ZjZgSqCode" column="ZjZgSqCode" type="String" length="20" />
+    <property name="chequeseriesno" column="chequeseriesno" type="String" length="30" />
+    <property name="BankId" column="BankId" type="String" length="20" />
+    <property name="PJLOGID" column="PJLOGID" type="Int32" length="4" />
+  </class>
+
+</hibernate-mapping>

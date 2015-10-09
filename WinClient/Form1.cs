@@ -23,13 +23,14 @@ namespace WinClient
 
         private void btn_Get_Click(object sender, EventArgs e)
         {
-
-            IContactsBll bll = WcfClient.GetProxy<IContactsBll>();
-            IList<Contacts> list = bll.FindAll();
-            PCData pcdata;
-            double memCount;
-            IMonitorControl blls = WcfClient.GetProxy<IMonitorControl>(); ;
-            blls.GetMonitorInfo(out pcdata, out memCount);
+            PJSBLOG pjsblog = new PJSBLOG()
+            {
+                ACCNO = this.txt_ACCNO.Text,
+                ZHDM = Convert.ToInt32(this.txt_ZHDM.Text)
+            };
+            IPJSBLOGBll bll = WcfClient.GetProxy<IPJSBLOGBll>();
+            IList<PJSBLOG> list = bll.PJSBLOGInfo(pjsblog);
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.DataSource = list;
         }
     }
