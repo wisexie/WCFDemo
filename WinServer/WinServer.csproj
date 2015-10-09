@@ -91,6 +91,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Antlr3.Runtime.dll" />
+    <Content Include="bin\Debug\Castle.Core.dll" />
+    <Content Include="bin\Debug\Castle.Core.xml" />
+    <Content Include="bin\Debug\Castle.DynamicProxy2.dll" />
+    <Content Include="bin\Debug\Castle.DynamicProxy2.xml" />
+    <Content Include="bin\Debug\Iesi.Collections.dll" />
+    <Content Include="bin\Debug\Iesi.Collections.xml" />
+    <Content Include="bin\Debug\log4net.dll" />
+    <Content Include="bin\Debug\log4net.xml" />
+    <Content Include="bin\Debug\NHibernate.ByteCode.Castle.dll" />
+    <Content Include="bin\Debug\NHibernate.ByteCode.Castle.xml" />
+    <Content Include="bin\Debug\NHibernate.dll" />
+    <Content Include="bin\Debug\NHibernate.xml" />
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
