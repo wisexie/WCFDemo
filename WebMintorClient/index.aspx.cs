@@ -18,6 +18,7 @@ namespace WebMintorClient
             if(!IsPostBack)
             {
                 this.ddl_ip.Items.Add(new ListItem("localhost:30005", "0"));
+                this.ddl_ip.Items.Add(new ListItem("localhost:30006", "1"));
             }
             
         }

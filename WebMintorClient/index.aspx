@@ -10,7 +10,9 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:DropDownList ID="ddl_ip" runat="server"></asp:DropDownList>
+        <asp:DropDownList ID="ddl_ip" runat="server">
+            
+        </asp:DropDownList>
         <asp:Button ID="btn_Search" runat="server" Text="查询" OnClick="btn_Search_Click" />
         <br />
         <%=htmlTable %>

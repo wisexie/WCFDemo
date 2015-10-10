@@ -32,6 +32,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\wcf-master\wcf-master\wcf.monitor\WcfMinitorClient\Bin\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\wcf-master\wcf-master\wcf.monitor\WcfMinitorClient\Bin\MySql.Data.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\wcf-master\wcf-master\wcf.monitor\WcfMinitorClient\Bin\MySql.Web.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\..\TestDemo\WinServer\bin\Debug\NHibernate.dll</HintPath>
     </Reference>
@@ -103,7 +115,9 @@
     <Content Include="bin\Debug\NHibernate.ByteCode.Castle.dll" />
     <Content Include="bin\Debug\NHibernate.ByteCode.Castle.xml" />
     <Content Include="bin\Debug\NHibernate.dll" />
-    <Content Include="bin\Debug\NHibernate.xml" />
+    <Content Include="bin\Debug\NHibernate.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
