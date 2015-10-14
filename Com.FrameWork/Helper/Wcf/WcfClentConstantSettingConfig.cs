@@ -22,7 +22,7 @@ namespace Com.FrameWork.Helper.Wcf
             mlist = new Dictionary<string, WcfClentBinding>();
             try
             {
-                foreach (XmlElement elem in XmlHelper.Children(doc.DocumentElement, "Servers"))
+                foreach (XmlElement elem in XmlHelper.Children(doc.DocumentElement, "Clients"))
                 {
                     foreach (XmlElement xe in XmlHelper.Children(elem, "Server"))
                     {
@@ -71,6 +71,9 @@ namespace Com.FrameWork.Helper.Wcf
                             config.WcfOutTime = long.Parse(xe2.Attributes["WcfOutTime"].Value);
                             config.WcfFailureTime = long.Parse(xe2.Attributes["WcfFailureTime"].Value);
                             config.WcfPoolMonitorReapTime = int.Parse(xe2.Attributes["WcfPoolMonitorReapTime"].Value);
+                            config.IsUsedHeatBeat = bool.Parse(xe2.Attributes["IsUsedHeatBeat"].Value);
+                            config.HeatBeatAddress = xe2.Attributes["HeatBeatAddress"].Value.Trim();
+
                             IDictionary<string, Address> addresslist = new Dictionary<string, Address>();
                             foreach (XmlElement xe3 in XmlHelper.Children(xe2, "Address"))
                             {
@@ -158,7 +161,22 @@ namespace Com.FrameWork.Helper.Wcf
             get;
             set;
         }
-
+        /// <summary>
+        /// 是否启用心跳侦察
+        /// </summary>
+        public bool IsUsedHeatBeat
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 负载中间件地址
+        /// </summary>
+        public string HeatBeatAddress
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 负载均衡地址信息
         /// </summary>

@@ -71,6 +71,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="servercontract.config">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -80,8 +81,6 @@
     <Content Include="bin\Debug\Castle.Core.xml" />
     <Content Include="bin\Debug\Castle.DynamicProxy2.dll" />
     <Content Include="bin\Debug\Castle.DynamicProxy2.xml" />
-    <Content Include="bin\Debug\Com.FrameWork.dll" />
-    <Content Include="bin\Debug\Com.FrameWork.pdb" />
     <Content Include="bin\Debug\Iesi.Collections.dll" />
     <Content Include="bin\Debug\Iesi.Collections.xml" />
     <Content Include="bin\Debug\log4net.dll" />

@@ -42,7 +42,7 @@ namespace Com.FrameWork.Helper
 
             //首先判断是否启用负载均衡
             bool isloadbalance = WcfCacheData.IsLoadBalance(contract);
-
+            
             if (isloadbalance)
             {
                 #region 启用负载均衡

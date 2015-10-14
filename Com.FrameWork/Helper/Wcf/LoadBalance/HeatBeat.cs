@@ -8,9 +8,11 @@ using System.Threading;
 
 namespace Com.FrameWork.Helper.Wcf.LoadBalance
 {
+   
     /// <summary>
     /// 维持心跳
     /// </summary>
+   [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class HeatBeat : CommonWcfBll, IHeatBeat
     {
         public void CallBack(bool flag)

@@ -12,6 +12,6 @@ namespace Demo.Interface
     public interface IPJSBLOGBll
     {
          [OperationContract]
-         IList<PJSBLOG> PJSBLOGInfo(PJSBLOG pjsbLog );
+         PJSBLOG[] PJSBLOGInfo(PJSBLOG pjsbLog );
     }
 }

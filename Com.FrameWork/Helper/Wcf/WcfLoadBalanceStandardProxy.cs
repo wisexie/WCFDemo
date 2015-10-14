@@ -12,6 +12,7 @@ using System.ServiceModel.Channels;
 using System.Configuration;
 
 using Com.FrameWork.Helper.Wcf.SDMessageHeader;
+using Com.FrameWork.Helper.Wcf.LoadBalance;
 
 namespace Com.FrameWork.Helper.Wcf
 {
@@ -54,7 +55,14 @@ namespace Com.FrameWork.Helper.Wcf
             string uri = null;
             try
             {
-                uri = balance.BalanceAlgorithm.GetServerKey();
+                Address blanceAddress = new Address();
+                blanceAddress.Uri =clientconst.LoadBalance.HeatBeatAddress;
+
+                ChannelFactory<IBalanceAddress> IBalanceAddressfactory = WcfCacheData.GetFactory<IBalanceAddress>(blanceAddress, EnableBinaryFormatterBehavior);
+                IBalanceAddress IBalanceAddresschannel = IBalanceAddressfactory.CreateChannel();
+
+                uri = IBalanceAddresschannel.GetAddress();
+                
             }
             catch (Exception buex)
             {

@@ -14,12 +14,12 @@ namespace Demo.Dao.Imp
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class PJSBLOGBll : CommonWcfBll, IPJSBLOGBll
     {
-        public IList<PJSBLOG> PJSBLOGInfo(PJSBLOG pjsbLog)
+        public PJSBLOG[] PJSBLOGInfo(PJSBLOG pjsbLog)
         {
             IList<PJSBLOG> list = null;
             PJSBLOGDal PJSBLOGDal = new PJSBLOGDal();
             list = PJSBLOGDal.PJSBLOGInfo(pjsbLog);
-            return list;
+            return list.ToArray();
         }
     }
 }

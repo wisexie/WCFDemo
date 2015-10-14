@@ -167,22 +167,6 @@ namespace Com.FrameWork.Helper
             throtbehavior.MaxConcurrentSessions = constantSetting.MaxConcurrentSessions;
             #endregion
 
-            //加入心跳服务
-            ServicePoint heatpoint = new ServicePoint();
-            heatpoint.Address = "Com/FrameWork/Helper/Wcf/LoadBalance/IHeatBeat";
-            heatpoint.Contract = typeof(IHeatBeat);
-            heatpoint.MaxItemsInObjectGraph = null;
-            heatpoint.Name = typeof(HeatBeat);
-            wcfSetting.List.Add(heatpoint);
-
-            //加入监控服务
-            ServicePoint monitorpoint = new ServicePoint();
-            monitorpoint.Address = "Com/FrameWork/Helper/Wcf/Monitor/IMonitorControl";
-            monitorpoint.Contract = typeof(IMonitorControl);
-            monitorpoint.MaxItemsInObjectGraph = null;
-            monitorpoint.Name = typeof(MonitorControl);
-            wcfSetting.List.Add(monitorpoint);
-
             //开始寄宿
             foreach (ServicePoint point in wcfSetting.List)
             {

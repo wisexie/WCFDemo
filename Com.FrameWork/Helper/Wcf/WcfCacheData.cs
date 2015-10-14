@@ -319,15 +319,16 @@ namespace Com.FrameWork.Helper.Wcf
             string server_name = GetServerName(contract);
             WcfClentBinding bing = GetWcfClientConst(server_name);
             bool flag = bing.LoadBalance.IsUsed;
-            //如果启用负载均衡，则启动监听心跳
-            if (flag && !wcfClentConstantList[server_name].LoadBalance.BalanceAlgorithm.IsNewInstance)
+            bool flagHeatBeat = bing.LoadBalance.IsUsedHeatBeat;
+
+            //如果启用负载均衡，则启动监听心跳,flagHeatBeat为false时需要监听心跳
+            if (flag && !wcfClentConstantList[server_name].LoadBalance.BalanceAlgorithm.IsNewInstance && !flagHeatBeat)
             {
                 LoadBalanceConfig balance = wcfClentConstantList[server_name].LoadBalance;
                 balance.BalanceAlgorithm.NewInstance(balance.WcfAdress, GetBing(contract));
             }
             return flag;
         }
-
         /// <summary>
         /// 得到负载的通道工厂
         /// </summary>

@@ -43,15 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\BalanceServer.cs" />
     <Compile Include="Helper\CommonWcfBll.cs" />
     <Compile Include="Helper\WcfClient.cs" />
     <Compile Include="Helper\WcfServer.cs" />
     <Compile Include="Helper\Wcf\BaseSetting.cs" />
     <Compile Include="Helper\Wcf\InitConfig.cs" />
     <Compile Include="Helper\Wcf\InstanceConfig.cs" />
+    <Compile Include="Helper\Wcf\LoadBalance\BalanceAddress.cs" />
     <Compile Include="Helper\Wcf\LoadBalance\BalanceAlgorithmBase.cs" />
     <Compile Include="Helper\Wcf\LoadBalance\ConsistentHashing.cs" />
     <Compile Include="Helper\Wcf\LoadBalance\HeatBeat.cs" />
+    <Compile Include="Helper\Wcf\LoadBalance\IBalanceAddress.cs" />
     <Compile Include="Helper\Wcf\LoadBalance\IHeatBeat.cs" />
     <Compile Include="Helper\Wcf\Monitor\IMonitorControl.cs" />
     <Compile Include="Helper\Wcf\Monitor\LinkModel.cs" />
