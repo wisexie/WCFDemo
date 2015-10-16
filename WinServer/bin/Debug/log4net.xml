@@ -2,7 +2,7 @@
 <doc>
     <assembly>
         <name>log4net</name>
-    </assembly>
+    </assembly> 
     <members>
         <member name="T:log4net.Appender.AdoNetAppender">
             <summary>
