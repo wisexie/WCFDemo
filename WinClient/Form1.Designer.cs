@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ZHDM = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ACCNO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_Get = new System.Windows.Forms.Button();
             this.txt_ZHDM = new System.Windows.Forms.TextBox();
             this.txt_ACCNO = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.ZHDM = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ACCNO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,6 +56,20 @@
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.Size = new System.Drawing.Size(456, 222);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // ZHDM
+            // 
+            this.ZHDM.DataPropertyName = "ZHDM";
+            this.ZHDM.HeaderText = "ZHDM";
+            this.ZHDM.Name = "ZHDM";
+            this.ZHDM.ReadOnly = true;
+            // 
+            // ACCNO
+            // 
+            this.ACCNO.DataPropertyName = "ACCNO";
+            this.ACCNO.HeaderText = "ACCNO";
+            this.ACCNO.Name = "ACCNO";
+            this.ACCNO.ReadOnly = true;
             // 
             // btn_Get
             // 
@@ -99,20 +113,6 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "账号";
             // 
-            // ZHDM
-            // 
-            this.ZHDM.DataPropertyName = "ZHDM";
-            this.ZHDM.HeaderText = "ZHDM";
-            this.ZHDM.Name = "ZHDM";
-            this.ZHDM.ReadOnly = true;
-            // 
-            // ACCNO
-            // 
-            this.ACCNO.DataPropertyName = "ACCNO";
-            this.ACCNO.HeaderText = "ACCNO";
-            this.ACCNO.Name = "ACCNO";
-            this.ACCNO.ReadOnly = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -126,6 +126,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

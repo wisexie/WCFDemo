@@ -1,0 +1,10 @@
+D:\我的项目\WCFDemo\Demo.Dal\bin\Debug\Demo.Dal.dll
+D:\我的项目\WCFDemo\Demo.Dal\bin\Debug\Demo.Dal.pdb
+D:\我的项目\WCFDemo\Demo.Dal\bin\Debug\Demo.Model.dll
+D:\我的项目\WCFDemo\Demo.Dal\bin\Debug\MySql.Data.dll
+D:\我的项目\WCFDemo\Demo.Dal\bin\Debug\MySql.Data.Entity.dll
+D:\我的项目\WCFDemo\Demo.Dal\bin\Debug\MySql.Web.dll
+D:\我的项目\WCFDemo\Demo.Dal\bin\Debug\Demo.Model.pdb
+D:\我的项目\WCFDemo\Demo.Dal\obj\Debug\Demo.Dal.csprojResolveAssemblyReference.cache
+D:\我的项目\WCFDemo\Demo.Dal\obj\Debug\Demo.Dal.dll
+D:\我的项目\WCFDemo\Demo.Dal\obj\Debug\Demo.Dal.pdb

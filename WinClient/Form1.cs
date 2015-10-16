@@ -33,5 +33,10 @@ namespace WinClient
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.DataSource = list;
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();  
+        }
     }
 }

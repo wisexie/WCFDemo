@@ -31,5 +31,20 @@ namespace Demo.Dal
                 return _factory.OpenSession();
             }
         }
+        public static ISession Create(string key)
+        {
+                if (_factory == null)
+                {
+                    lock (obj)
+                    {
+                        if (_factory == null)
+                        {
+                            Configuration cfg = new Configuration().Configure(key);
+                            _factory = cfg.BuildSessionFactory();
+                        }
+                    }
+                }
+                return _factory.OpenSession();
+        }
     }
 }

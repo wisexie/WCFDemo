@@ -10,6 +10,114 @@ namespace Com.FrameWork.Helper.Wcf
 {
     internal class WcfConstantSettingConfig
     {
+
+        private List<WcfServerBinding> mlist;
+
+        public List<WcfServerBinding> WcfServerConstantList
+        {
+            get
+            {
+                return mlist;
+            }
+        }
+        /// <summary>
+        /// wcf服务端常量设置文件
+        /// </summary>
+        /// <param name="doc"></param>
+        public WcfConstantSettingConfig(XmlDocument doc)
+        {
+            mlist=new List<WcfServerBinding>();
+            try
+            {
+                foreach (XmlElement elems in XmlHelper.Children(doc.DocumentElement, "Servers"))
+                {
+                    foreach (XmlElement elem in XmlHelper.Children(elems, "Binding"))
+                    {
+            
+
+                        WcfServerBinding wcfServerBind = new WcfServerBinding();
+
+                        XmlElement xe = XmlHelper.Child(elem, "readerQuotas");
+                        wcfServerBind.MaxDepth=int.Parse(xe.GetAttribute("maxDepth"));
+                        wcfServerBind.MaxStringContentLength = int.Parse(xe.GetAttribute("maxStringContentLength"));
+                        wcfServerBind.MaxArrayLength = int.Parse(xe.GetAttribute("maxArrayLength"));
+                        wcfServerBind.MaxBytesPerRead = int.Parse(xe.GetAttribute("maxBytesPerRead"));
+                        wcfServerBind.MaxNameTableCharCount = int.Parse(xe.GetAttribute("maxNameTableCharCount"));
+
+                        XmlElement xea = XmlHelper.Child(elem, "reliableSession");
+                        wcfServerBind.ReliableSessionEnabled = Boolean.Parse(xea.GetAttribute("enabled"));
+                        wcfServerBind.ReliableSessionOrdered = Boolean.Parse(xea.GetAttribute("ordered"));
+                        wcfServerBind.ReliableSessionInactivityTimeout = TimeSpan.Parse(xea.GetAttribute("inactivityTimeout"));
+
+                        XmlElement xe1 = XmlHelper.Child(elem, "host");
+                        wcfServerBind.BaseAddress  = new Uri(xe1.GetAttribute("baseAddress"));
+
+                        switch (xe1.GetAttribute("binding").ToLower())
+                        {
+                            case "netTcpBinding":
+                                wcfServerBind.Binding = new NetTcpBinding();
+                                break;
+                       
+                        }
+
+                        XmlElement xe2 = XmlHelper.Child(elem, "behaviors");
+                        wcfServerBind.CloseTimeout = TimeSpan.Parse(xe2.GetAttribute("closeTimeout"));
+                        wcfServerBind.OpenTimeout = TimeSpan.Parse(xe2.GetAttribute("openTimeout"));
+                        wcfServerBind.ReceiveTimeout = TimeSpan.Parse(xe2.GetAttribute("receiveTimeout"));
+                        wcfServerBind.SendTimeout = TimeSpan.Parse(xe2.GetAttribute("sendTimeout"));
+                        wcfServerBind.TransactionFlow = Boolean.Parse(xe2.GetAttribute("transactionFlow"));
+                        wcfServerBind.TransferMode = (TransferMode)Enum.Parse(typeof(TransferMode), xe2.GetAttribute("transferMode"));
+
+                        switch (xe2.GetAttribute("transactionProtocol").ToLower())
+                        {
+                            case "oletransactions":
+                                wcfServerBind.TransactionProtocol = TransactionProtocol.OleTransactions;
+                                break;
+                            case "wsatomictransaction11":
+                                wcfServerBind.TransactionProtocol = TransactionProtocol.WSAtomicTransaction11;
+                                break;
+                            case "wsatomictransactionoctober2004":
+                                wcfServerBind.TransactionProtocol = TransactionProtocol.WSAtomicTransactionOctober2004;
+                                break;
+                            default:
+                                wcfServerBind.TransactionProtocol = TransactionProtocol.Default;
+                                break;
+                        }
+          
+                        wcfServerBind.HostNameComparisonMode = (HostNameComparisonMode)Enum.Parse(typeof(HostNameComparisonMode), xe2.GetAttribute("hostNameComparisonMode"));
+                        wcfServerBind.ListenBacklog = int.Parse(xe2.GetAttribute("listenBacklog"));
+                        wcfServerBind.MaxBufferPoolSize = int.Parse(xe2.GetAttribute("maxBufferPoolSize"));
+                        wcfServerBind.MaxBufferSize = int.Parse(xe2.GetAttribute("maxBufferSize"));
+                        wcfServerBind.MaxConnections = int.Parse(xe2.GetAttribute("maxConnections"));
+                        wcfServerBind.MaxReceivedMessageSize = int.Parse(xe2.GetAttribute("maxReceivedMessageSize"));
+                        wcfServerBind.PortSharingEnabled = bool.Parse(xe2.GetAttribute("portSharingEnabled"));
+                        wcfServerBind.Securitymode = (SecurityMode)Enum.Parse(typeof(SecurityMode), xe2.GetAttribute("securitymode"));
+                        wcfServerBind.ClientCredentialType = (MessageCredentialType)Enum.Parse(typeof(MessageCredentialType), xe2.GetAttribute("clientCredentialType"));
+                        //_enableBinaryFormatterBehavior = bool.Parse(xe2.GetAttribute("enableBinaryFormatterBehavior"));
+
+                        XmlElement xe3 = XmlHelper.Child(elem, "serviceDebug");
+                        wcfServerBind.IncludeExceptionDetailInFaults = bool.Parse(xe3.GetAttribute("includeExceptionDetailInFaults"));
+
+                        XmlElement xe4 = XmlHelper.Child(elem, "serviceThrottling");
+                        wcfServerBind.MaxConcurrentCalls = int.Parse(xe4.GetAttribute("maxConcurrentCalls"));
+                        wcfServerBind.MaxConcurrentInstances = int.Parse(xe4.GetAttribute("maxConcurrentInstances"));
+                        wcfServerBind.MaxConcurrentSessions = int.Parse(xe4.GetAttribute("maxConcurrentSessions"));
+
+                        //XmlElement xe5 = XmlHelper.Child(elem, "dataContractSerializer");
+                        //int.TryParse(xe5.GetAttribute("maxItemsInObjectGraph"), out _maxItemsInObjectGraph);
+                        mlist.Add(wcfServerBind);
+                    }
+                }
+            }
+            catch (Exception oe)
+            {
+                throw new ArgumentException(oe.Message);
+            }
+        }
+     
+    }
+    internal class WcfServerBinding
+    {
         #region 内部字段
         private int _maxDepth;
         private int _maxStringContentLength;
@@ -29,7 +137,7 @@ namespace Com.FrameWork.Helper.Wcf
         private TimeSpan _sendTimeout;
         private bool _transactionFlow;
         private TransferMode _transferMode;
-        private string _transactionProtocol;
+        private TransactionProtocol _transactionProtocol;
         private HostNameComparisonMode _hostNameComparisonMode;
         private int _listenBacklog;
         private int _maxBufferPoolSize;
@@ -51,78 +159,16 @@ namespace Com.FrameWork.Helper.Wcf
 
         #endregion
 
-        /// <summary>
-        /// wcf服务端常量设置文件
-        /// </summary>
-        /// <param name="doc"></param>
-        public WcfConstantSettingConfig(XmlDocument doc)
-        {
-            try
-            {
-                foreach (XmlElement elems in XmlHelper.Children(doc.DocumentElement, "Servers"))
-                {
-                    foreach (XmlElement elem in XmlHelper.Children(elems, "NetTcpBinding"))
-                    {
-                        XmlElement xe = XmlHelper.Child(elem, "readerQuotas");
-                        int.TryParse(xe.GetAttribute("maxDepth"), out _maxDepth);
-                        int.TryParse(xe.GetAttribute("maxStringContentLength"), out _maxStringContentLength);
-                        int.TryParse(xe.GetAttribute("maxArrayLength"), out _maxArrayLength);
-                        int.TryParse(xe.GetAttribute("maxBytesPerRead"), out _maxBytesPerRead);
-                        int.TryParse(xe.GetAttribute("maxNameTableCharCount"), out _maxNameTableCharCount);
-
-                        XmlElement xea = XmlHelper.Child(elem, "reliableSession");
-                        Boolean.TryParse(xea.GetAttribute("enabled"), out _reliableSessionEnabled);
-                        Boolean.TryParse(xea.GetAttribute("ordered"), out _reliableSessionOrdered);
-                        TimeSpan.TryParse(xea.GetAttribute("inactivityTimeout"), out _reliableSessionInactivityTimeout);
-
-                        XmlElement xe1 = XmlHelper.Child(elem, "host");
-                        _addres = new Uri(xe1.GetAttribute("baseAddress"));
-                        _binding = new NetTcpBinding();
-
-                        XmlElement xe2 = XmlHelper.Child(elem, "behaviors");
-                        TimeSpan.TryParse(xe2.GetAttribute("closeTimeout"), out _closeTimeout);
-                        TimeSpan.TryParse(xe2.GetAttribute("openTimeout"), out _openTimeout);
-                        TimeSpan.TryParse(xe2.GetAttribute("receiveTimeout"), out _receiveTimeout);
-                        TimeSpan.TryParse(xe2.GetAttribute("sendTimeout"), out _sendTimeout);
-                        Boolean.TryParse(xe2.GetAttribute("transactionFlow"), out _transactionFlow);
-                        _transferMode = (TransferMode)Enum.Parse(typeof(TransferMode), xe2.GetAttribute("transferMode"));
-                        _transactionProtocol = xe2.GetAttribute("transactionProtocol");
-                        _hostNameComparisonMode = (HostNameComparisonMode)Enum.Parse(typeof(HostNameComparisonMode), xe2.GetAttribute("hostNameComparisonMode"));
-                        int.TryParse(xe2.GetAttribute("listenBacklog"), out  _listenBacklog);
-                        int.TryParse(xe2.GetAttribute("maxBufferPoolSize"), out _maxBufferPoolSize);
-                        int.TryParse(xe2.GetAttribute("maxBufferSize"), out _maxBufferSize);
-                        int.TryParse(xe2.GetAttribute("maxConnections"), out _maxConnections);
-                        int.TryParse(xe2.GetAttribute("maxReceivedMessageSize"), out _maxReceivedMessageSize);
-                        bool.TryParse(xe2.GetAttribute("portSharingEnabled"), out _portSharingEnabled);
-                        _securitymode = (SecurityMode)Enum.Parse(typeof(SecurityMode), xe2.GetAttribute("securitymode"));
-                        _clientCredentialType = (MessageCredentialType)Enum.Parse(typeof(MessageCredentialType), xe2.GetAttribute("clientCredentialType"));
-                        //_enableBinaryFormatterBehavior = bool.Parse(xe2.GetAttribute("enableBinaryFormatterBehavior"));
-
-                        XmlElement xe3 = XmlHelper.Child(elem, "serviceDebug");
-                        Boolean.TryParse(xe3.GetAttribute("includeExceptionDetailInFaults"), out _includeExceptionDetailInFaults);
-
-                        XmlElement xe4 = XmlHelper.Child(elem, "serviceThrottling");
-                        int.TryParse(xe4.GetAttribute("maxConcurrentCalls"), out _maxConcurrentCalls);
-                        int.TryParse(xe4.GetAttribute("maxConcurrentInstances"), out _maxConcurrentInstances);
-                        int.TryParse(xe4.GetAttribute("maxConcurrentSessions"), out _maxConcurrentSessions);
-
-                        //XmlElement xe5 = XmlHelper.Child(elem, "dataContractSerializer");
-                        //int.TryParse(xe5.GetAttribute("maxItemsInObjectGraph"), out _maxItemsInObjectGraph);
-                    }
-                }
-            }
-            catch (Exception oe)
-            {
-                throw new ArgumentException(oe.Message);
-            }
-        }
-
         #region readerQuotas
         public int MaxDepth
         {
             get
             {
                 return _maxDepth;
+            }
+            set
+            {
+                _maxDepth = value;
             }
         }
 
@@ -132,6 +178,10 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _maxStringContentLength;
             }
+            set
+            {
+                _maxStringContentLength = value;
+            }
         }
 
         public int MaxArrayLength
@@ -139,6 +189,10 @@ namespace Com.FrameWork.Helper.Wcf
             get
             {
                 return _maxArrayLength;
+            }
+            set
+            {
+                _maxArrayLength = value;
             }
         }
 
@@ -148,6 +202,10 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _maxBytesPerRead;
             }
+            set
+            {
+                _maxBytesPerRead = value;
+            }
         }
 
         public int MaxNameTableCharCount
@@ -155,6 +213,10 @@ namespace Com.FrameWork.Helper.Wcf
             get
             {
                 return _maxNameTableCharCount;
+            }
+            set
+            {
+                _maxNameTableCharCount = value;
             }
         }
 
@@ -168,14 +230,26 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _reliableSessionEnabled;
             }
+            set
+            {
+                _reliableSessionEnabled = value;
+            }
         }
         public bool ReliableSessionOrdered
         {
             get { return _reliableSessionOrdered; }
+            set
+            {
+                _reliableSessionOrdered = value;
+            }
         }
         public TimeSpan ReliableSessionInactivityTimeout
         {
             get { return _reliableSessionInactivityTimeout; }
+            set
+            {
+                _reliableSessionInactivityTimeout = value;
+            }
         }
 
         #endregion
@@ -187,6 +261,10 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _addres;
             }
+            set
+            {
+                _addres = value;
+            }
         }
 
         public Binding Binding
@@ -194,6 +272,10 @@ namespace Com.FrameWork.Helper.Wcf
             get
             {
                 return _binding;
+            }
+            set
+            {
+                _binding = value;
             }
         }
         #endregion
@@ -205,12 +287,20 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _closeTimeout;
             }
+            set
+            {
+                _closeTimeout = value;
+            }
         }
         public TimeSpan OpenTimeout
         {
             get
             {
                 return _openTimeout;
+            }
+            set
+            {
+                _openTimeout = value;
             }
         }
         public TimeSpan ReceiveTimeout
@@ -219,12 +309,20 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _receiveTimeout;
             }
+            set
+            {
+                _receiveTimeout = value;
+            }
         }
         public TimeSpan SendTimeout
         {
             get
             {
                 return _sendTimeout;
+            }
+            set
+            {
+                _sendTimeout = value;
             }
         }
 
@@ -234,6 +332,10 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _transactionFlow;
             }
+            set
+            {
+                _transactionFlow = value;
+            }
         }
         public TransferMode TransferMode
         {
@@ -241,22 +343,31 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _transferMode;
             }
+            set
+            {
+                _transferMode = value;
+            }
         }
         public TransactionProtocol TransactionProtocol
         {
             get
             {
-                switch (_transactionProtocol.ToLower())
-                {
-                    case "oletransactions":
-                        return TransactionProtocol.OleTransactions;
-                    case "wsatomictransaction11":
-                        return TransactionProtocol.WSAtomicTransaction11;
-                    case "wsatomictransactionoctober2004":
-                        return TransactionProtocol.WSAtomicTransactionOctober2004;
-                    default:
-                        return TransactionProtocol.Default;
-                }
+                return _transactionProtocol == null ? TransactionProtocol.Default : _transactionProtocol;
+                //switch (_transactionProtocol.ToLower())
+                //{
+                //    case "oletransactions":
+                //        return TransactionProtocol.OleTransactions;
+                //    case "wsatomictransaction11":
+                //        return TransactionProtocol.WSAtomicTransaction11;
+                //    case "wsatomictransactionoctober2004":
+                //        return TransactionProtocol.WSAtomicTransactionOctober2004;
+                //    default:
+                //        return TransactionProtocol.Default;
+                //}
+            }
+            set
+            {
+                _transactionProtocol = value;
             }
         }
         public HostNameComparisonMode HostNameComparisonMode
@@ -265,12 +376,20 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _hostNameComparisonMode;
             }
+            set
+            {
+                _hostNameComparisonMode = value;
+            }
         }
         public int ListenBacklog
         {
             get
             {
                 return _listenBacklog;
+            }
+            set
+            {
+                _listenBacklog = value;
             }
         }
         public int MaxBufferPoolSize
@@ -279,12 +398,20 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _maxBufferPoolSize;
             }
+            set
+            {
+                _maxBufferPoolSize = value;
+            }
         }
         public int MaxBufferSize
         {
             get
             {
                 return _maxBufferSize;
+            }
+            set
+            {
+                _maxBufferSize = value;
             }
         }
         public int MaxConnections
@@ -293,12 +420,20 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _maxConnections;
             }
+            set
+            {
+                _maxConnections = value;
+            }
         }
         public int MaxReceivedMessageSize
         {
             get
             {
                 return _maxReceivedMessageSize;
+            }
+            set
+            {
+                _maxReceivedMessageSize = value;
             }
         }
         public bool PortSharingEnabled
@@ -307,12 +442,20 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _portSharingEnabled;
             }
+            set
+            {
+                _portSharingEnabled = value;
+            }
         }
         public SecurityMode Securitymode
         {
             get
             {
                 return _securitymode;
+            }
+            set
+            {
+                _securitymode = value;
             }
         }
         public MessageCredentialType ClientCredentialType
@@ -321,12 +464,20 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _clientCredentialType;
             }
+            set
+            {
+                _clientCredentialType = value;
+            }
         }
         public bool enableBinaryFormatterBehavior
         {
             get
             {
                 return _enableBinaryFormatterBehavior;
+            }
+            set
+            {
+                _enableBinaryFormatterBehavior = value;
             }
         }
 
@@ -339,6 +490,10 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _includeExceptionDetailInFaults;
             }
+            set
+            {
+                _includeExceptionDetailInFaults = value;
+            }
         }
         #endregion
 
@@ -349,6 +504,10 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _maxConcurrentCalls;
             }
+            set
+            {
+                _maxConcurrentCalls = value;
+            }
         }
         public int MaxConcurrentInstances
         {
@@ -356,12 +515,20 @@ namespace Com.FrameWork.Helper.Wcf
             {
                 return _maxConcurrentInstances;
             }
+            set
+            {
+                _maxConcurrentInstances = value;
+            }
         }
         public int MaxConcurrentSessions
         {
             get
             {
                 return _maxConcurrentSessions;
+            }
+            set
+            {
+                _maxConcurrentSessions = value;
             }
         }
         #endregion

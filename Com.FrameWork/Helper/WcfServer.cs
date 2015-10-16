@@ -11,6 +11,7 @@ using Com.FrameWork.Helper.Wcf;
 using Com.FrameWork.Helper.Wcf.LoadBalance;
 using Com.FrameWork.Helper.Wcf.SerializeBehavior;
 using Com.FrameWork.Helper.Wcf.Monitor;
+using System.ServiceModel.Channels;
 
 namespace Com.FrameWork.Helper
 {
@@ -129,49 +130,56 @@ namespace Com.FrameWork.Helper
 
             isStop = false;
 
-            #region 指定bing模式
-            NetTcpBinding bing = new NetTcpBinding();
-            bing.CloseTimeout = constantSetting.CloseTimeout;
-            bing.OpenTimeout = constantSetting.OpenTimeout;
-            bing.ReceiveTimeout = constantSetting.ReceiveTimeout;
-            bing.SendTimeout = constantSetting.SendTimeout;
-            bing.TransactionFlow = constantSetting.TransactionFlow;
-            bing.TransferMode = constantSetting.TransferMode;
-            bing.TransactionProtocol = constantSetting.TransactionProtocol;
-            bing.HostNameComparisonMode = constantSetting.HostNameComparisonMode;
-            bing.ListenBacklog = constantSetting.ListenBacklog;
-            bing.MaxBufferPoolSize = constantSetting.MaxBufferPoolSize;
-            bing.MaxBufferSize = constantSetting.MaxBufferSize;
-            bing.MaxConnections = constantSetting.MaxConnections;
-            bing.MaxReceivedMessageSize = constantSetting.MaxReceivedMessageSize;
-            bing.Security.Mode = constantSetting.Securitymode;
-
-            bing.PortSharingEnabled = constantSetting.PortSharingEnabled;
-            bing.ReaderQuotas.MaxStringContentLength = constantSetting.MaxStringContentLength;
-            bing.ReaderQuotas.MaxDepth = constantSetting.MaxDepth;
-            bing.ReaderQuotas.MaxArrayLength = constantSetting.MaxArrayLength;
-            bing.ReaderQuotas.MaxBytesPerRead = constantSetting.MaxBytesPerRead;
-            bing.ReaderQuotas.MaxNameTableCharCount = constantSetting.MaxNameTableCharCount;
-            bing.Security.Message.ClientCredentialType = constantSetting.ClientCredentialType;
-            bing.ReliableSession.Enabled = constantSetting.ReliableSessionEnabled;
-            bing.ReliableSession.Ordered = constantSetting.ReliableSessionOrdered;
-            bing.ReliableSession.InactivityTimeout = constantSetting.ReliableSessionInactivityTimeout;
-            #endregion
-
-            #region behavior模式
-            ServiceDebugBehavior debugbehavior = new ServiceDebugBehavior();
-            debugbehavior.IncludeExceptionDetailInFaults = constantSetting.IncludeExceptionDetailInFaults;
-            ServiceThrottlingBehavior throtbehavior = new ServiceThrottlingBehavior();
-            throtbehavior.MaxConcurrentCalls = constantSetting.MaxConcurrentCalls;
-            throtbehavior.MaxConcurrentInstances = constantSetting.MaxConcurrentInstances;
-            throtbehavior.MaxConcurrentSessions = constantSetting.MaxConcurrentSessions;
-            #endregion
-
-            //开始寄宿
-            foreach (ServicePoint point in wcfSetting.List)
+            
+            foreach (WcfServerBinding bingItem in constantSetting.WcfServerConstantList)
             {
-                OpenHost(point, debugbehavior, throtbehavior, bing, constantSetting.enableBinaryFormatterBehavior);
+                #region 指定bing模式
+                NetTcpBinding bing = new NetTcpBinding();
+                bing.CloseTimeout = bingItem.CloseTimeout;
+                bing.OpenTimeout = bingItem.OpenTimeout;
+                bing.ReceiveTimeout = bingItem.ReceiveTimeout;
+                bing.SendTimeout = bingItem.SendTimeout;
+                bing.TransactionFlow = bingItem.TransactionFlow;
+                bing.TransferMode = bingItem.TransferMode;
+                bing.TransactionProtocol = bingItem.TransactionProtocol;
+                bing.HostNameComparisonMode = bingItem.HostNameComparisonMode;
+                bing.ListenBacklog = bingItem.ListenBacklog;
+                bing.MaxBufferPoolSize = bingItem.MaxBufferPoolSize;
+                bing.MaxBufferSize = bingItem.MaxBufferSize;
+                bing.MaxConnections = bingItem.MaxConnections;
+                bing.MaxReceivedMessageSize = bingItem.MaxReceivedMessageSize;
+                bing.Security.Mode = bingItem.Securitymode;
+
+                bing.PortSharingEnabled = bingItem.PortSharingEnabled;
+                bing.ReaderQuotas.MaxStringContentLength = bingItem.MaxStringContentLength;
+                bing.ReaderQuotas.MaxDepth = bingItem.MaxDepth;
+                bing.ReaderQuotas.MaxArrayLength = bingItem.MaxArrayLength;
+                bing.ReaderQuotas.MaxBytesPerRead = bingItem.MaxBytesPerRead;
+                bing.ReaderQuotas.MaxNameTableCharCount = bingItem.MaxNameTableCharCount;
+                bing.Security.Message.ClientCredentialType = bingItem.ClientCredentialType;
+                bing.ReliableSession.Enabled = bingItem.ReliableSessionEnabled;
+                bing.ReliableSession.Ordered = bingItem.ReliableSessionOrdered;
+                bing.ReliableSession.InactivityTimeout = bingItem.ReliableSessionInactivityTimeout;
+
+                #endregion
+
+                #region behavior模式
+                ServiceDebugBehavior debugbehavior = new ServiceDebugBehavior();
+                debugbehavior.IncludeExceptionDetailInFaults = bingItem.IncludeExceptionDetailInFaults;
+                ServiceThrottlingBehavior throtbehavior = new ServiceThrottlingBehavior();
+                throtbehavior.MaxConcurrentCalls = bingItem.MaxConcurrentCalls;
+                throtbehavior.MaxConcurrentInstances = bingItem.MaxConcurrentInstances;
+                throtbehavior.MaxConcurrentSessions = bingItem.MaxConcurrentSessions;
+                #endregion
+
+                //开始寄宿
+                foreach (ServicePoint point in wcfSetting.List)
+                {
+                    OpenHost(point, debugbehavior, throtbehavior, bing, bingItem.enableBinaryFormatterBehavior, bingItem.BaseAddress);
+                }
             }
+            
+         
         }
 
         /// <summary>
@@ -181,10 +189,9 @@ namespace Com.FrameWork.Helper
         /// <param name="debugbehavior"></param>
         /// <param name="throtbehavior"></param>
         /// <param name="bing"></param>
-        private void OpenHost(ServicePoint point, ServiceDebugBehavior debugbehavior, ServiceThrottlingBehavior throtbehavior, NetTcpBinding bing, bool EnableBinaryFormatterBehavior)
+        private void OpenHost(ServicePoint point, ServiceDebugBehavior debugbehavior, ServiceThrottlingBehavior throtbehavior, NetTcpBinding bing, bool EnableBinaryFormatterBehavior,Uri baseAddress)
         {
-            ServiceHost host = new ServiceHost(point.Name, new Uri("net.tcp://" + constantSetting.BaseAddress));
-
+            ServiceHost host = new ServiceHost(point.Name, new Uri("net.tcp://" + baseAddress));
             #region behavior
             if (host.Description.Behaviors.Find<ServiceDebugBehavior>() != null)
                 host.Description.Behaviors.Remove<ServiceDebugBehavior>();
@@ -277,7 +284,7 @@ namespace Com.FrameWork.Helper
                     return;
 
                 services.Remove(host);
-                OpenHost(point, debugbehavior, throtbehavior, bing, EnableBinaryFormatterBehavior);
+                OpenHost(point, debugbehavior, throtbehavior, bing, EnableBinaryFormatterBehavior,baseAddress);
             });
             #endregion
 
